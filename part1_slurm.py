@@ -33,25 +33,25 @@ def populate_array(file, typ):
     of reads to return an array of mean phred scores per position'''
     p_scores = []
     ct = 0
-    if typ == 'index':
+    if typ == 'index': #file contain index reads, seq length will be 8
         num = 8
-    elif typ == 'seq':
+    elif typ == 'seq': #file contains sequence reads, seq length will be 101
         num = 101
-    else:
+    else: #there was a mistake?
         print('Not a valid type')
-    while ct < num:
+    while ct < num: #generate a list of appropriate length
         p_scores.append(0.0)
         ct += 1
-    with gzip.open(file,'rt') as f:
-        LN = 0
+    with gzip.open(file,'rt') as f: #open a gzipped file in non-binary read mode
+        LN = 0 #init line count
         for line in f:
-            LN+=1
-            line = line.strip('\n')
-            if LN%4 == 0:
+            LN+=1 #line counter increment
+            line = line.strip('\n') #strip newline character
+            if LN%4 == 0: #this line is quality scores
                 pos = 0
-                for ch in line:
-                    qscore = convert_phred(ch)
-                    p_scores[pos]+= qscore
+                for ch in line: #look at each score, one at a time
+                    qscore = convert_phred(ch) #convert phred score
+                    p_scores[pos]+= qscore #append to list
                     pos += 1
         mean_scores=np.array(p_scores)
         reads = LN//4
