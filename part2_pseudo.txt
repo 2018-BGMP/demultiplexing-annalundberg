@@ -1,0 +1,51 @@
+'''Bi622: Demultiplexing assignment
+This is an algorithm outline for part 2 of demultiplexing'''
+
+'''The problem:
+We have 4 fastq files, 2 indexes and 2 sequences. We need to determine if the
+indexes match per read. One sequence file is forward reads, the other is reverse.
+The reads appear in a consistent order between files. We need to filter the
+reads so that each index gets a file of forward reads and one of reverse reads.
+Since we don’t know which file has forward and which has reverse, we will
+arbitrarily assign. Reads with unclear indexes will be thrown into the pair of
+files with unknown indexes.'''
+
+'''Output: File names of all files created (2 files per index (forward and
+reverse) and 2 files of reads with unknown indexes), integer of properly matched
+indexes and float percentage of index hopping observed.
+'''
+def compare_fastq(r1, i1, i2, r2):
+  '''(str, str, str, str)->dict, dict
+  This fxn opens fwd and rev index files, compares the index,
+  and writes reads from the fwd and rev files into dictionaries
+  using indexes as keys'''
+  #init fwd and rev dictionaries
+  #open both index files
+    # go to sequence line, compare indexes
+    #if indexes match:
+      #add r1 read to fwd dict with key index
+      #add r2 read to rev dict with key index
+    #if indexes don't match:
+      #add r1 read to fwd dict with key fail
+      #add r2 read to rev dict with key fail
+    return fwd_dict, rev_dict
+
+def write_new_files(fwd_dict, rev_dict):
+  '''(dict, dict, dict, dict)->list of str(file names), int, float
+  This fxn uses dictionaries prepared in'''
+  #init list for file names
+  #init dict of index match count
+  #init total read counter
+  #open fwd_dict entry key=fail, count entries as num_fail
+  #open fwd_dict and loop through each index:
+    #for each index, open a new write file as index_fwd
+      #record number of reads in index dict, index key, count value
+      #increment total read counter
+      #write each read that belongs to that index into the file
+  #open rev_dict and loop through each index:
+    #for each index, open a new write file and index_rev
+      #write each read that belongs to that index into the file
+  #percent_index_hop = num_fail / total_read_count
+  return list_file_names, num_matches, percent_index_hop
+
+  #call functions, print write_new_files fxn output in a helpful way
